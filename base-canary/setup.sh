@@ -46,7 +46,7 @@ apt-get update -y
 mkdir -p ./deb-folder && chmod 777 ./deb-folder && cd ./deb-folder
 for pkg in $(dpkg --get-selections | cut -f1)
 do
-    DEBIAN_FRONTEND=noninteractive apt download $pkg -y
+    DEBIAN_FRONTEND=noninteractive apt download $pkg -y -t canary
 done
 DEBIAN_FRONTEND=noninteractive apt install -y ./*.deb --allow-downgrades --allow-change-held-packages -o Dpkg::Options::="--force-confnew"
 cd ../ && rm -rf ./deb-folder
