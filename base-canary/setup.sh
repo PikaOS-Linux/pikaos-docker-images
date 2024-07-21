@@ -43,19 +43,11 @@ EOF
 
 apt-get update -y
 
-mkdir -p ./deb-folder && chmod 777 ./deb-folder && cd ./deb-folder
-touch /var/lib/dpkg/status
-touch /var/lib/dpkg/status-old
-touch /var/lib/dpkg/available
-rm -rf /var/lib/dpkg/info
-mkdir /var/lib/dpkg/info
 dpkg --get-selections | cut -f1 > ./installed.txt
 for pkg in $(cat ./installed.txt)
 do
-    DEBIAN_FRONTEND=noninteractive apt download $pkg -y
+    DEBIAN_FRONTEND=noninteractive apt install -y $pkg -t pika --allow-downgrades --allow-change-held-packages -o Dpkg::Options::="--force-confnew"
 done
-DEBIAN_FRONTEND=noninteractive apt install -y ./*.deb --allow-downgrades --allow-change-held-packages -o Dpkg::Options::="--force-confnew"
-cd ../ && rm -rf ./deb-folder
 
 ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata -o Dpkg::Options::="--force-confnew"
