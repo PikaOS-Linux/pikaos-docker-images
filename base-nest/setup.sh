@@ -35,10 +35,13 @@ wget https://github.com/PikaOS-Linux/pika-base-debian-container/raw/main/pika-ke
 
 apt-get update -y
 
+mkdir -p ./deb-folder && cd ./deb-folder
 for pkg in $(dpkg --get-selections | cut -f1)
 do
-    DEBIAN_FRONTEND=noninteractive apt install -y $pkg --reinstall --allow-downgrades --allow-change-held-packages -o Dpkg::Options::="--force-confnew"
+    DEBIAN_FRONTEND=noninteractive apt download $pkg -y
 done
+DEBIAN_FRONTEND=noninteractive apt install -y ./*.deb --allow-downgrades --allow-change-held-packages -o Dpkg::Options::="--force-confnew"
+cd ../ && rm -rf ./deb-folder
 
 ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata -o Dpkg::Options::="--force-confnew"
