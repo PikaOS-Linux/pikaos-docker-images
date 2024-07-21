@@ -42,7 +42,7 @@ apt-get update -y
 dpkg --get-selections | cut -f1 > ./installed.txt
 for pkg in $(cat ./installed.txt)
 do
-    DEBIAN_FRONTEND=noninteractive apt install -y $pkg -t pika --allow-downgrades --allow-change-held-packages -o Dpkg::Options::="--force-confnew"
+    DEBIAN_FRONTEND=noninteractive apt install -y $pkg --allow-downgrades -o Dpkg::Options::="--force-confnew"
 done
 
 rm -fv /etc/apt/preferences.d/0-pika-nest-settings
