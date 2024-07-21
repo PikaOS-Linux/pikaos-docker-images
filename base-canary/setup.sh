@@ -6,8 +6,6 @@ mkdir -p /etc/apt/sources.list.d
 
 rm -rf /etc/apt/sources.list.d/*
 
-### To be replaced with pika-sources wget: Start
-
 # Clear /etc/apt/sources.list in favor of deb822 formats
 tee /etc/apt/sources.list <<'EOF'
 ## This file is deprecated in PikaOS.
@@ -33,13 +31,17 @@ wget https://github.com/PikaOS-Linux/pika-base-debian-container/raw/main/pika-ke
 
 # Setup apt configration
 mkdir -p /etc/apt/preferences.d/
-tee /etc/apt/preferences.d/0-pika-canary-settings <<'EOF'
+tee /etc/apt/preferences.d/0-pika-nest-settings <<'EOF'
 Package: *
 Pin: release a=pika,c=nest
-Pin-Priority: 450
+Pin-Priority: 400
 EOF
 
-### To be replaced with pika-sources wget: End
+tee /etc/apt/preferences.d/0-pika-canary-settings <<'EOF'
+Package: *
+Pin: release a=pika,c=canary
+Pin-Priority: 1001
+EOF
 
 apt-get update -y
 
@@ -48,6 +50,13 @@ for pkg in $(cat ./installed.txt)
 do
     DEBIAN_FRONTEND=noninteractive apt install -y $pkg -t pika --allow-downgrades --allow-change-held-packages -o Dpkg::Options::="--force-confnew"
 done
+
+rm -fv /etc/apt/preferences.d/0-pika-canary-settings
+tee /etc/apt/preferences.d/0-pika-canary-settings <<'EOF'
+Package: *
+Pin: release a=pika,c=canary
+Pin-Priority: 450
+EOF
 
 ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata -o Dpkg::Options::="--force-confnew"
