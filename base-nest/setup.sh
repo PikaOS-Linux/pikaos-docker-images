@@ -35,9 +35,10 @@ wget https://github.com/PikaOS-Linux/pika-base-debian-container/raw/main/pika-ke
 
 apt-get update -y
 
-touch /var/lib/dpkg/status
 mkdir -p ./deb-folder && chmod 777 ./deb-folder && cd ./deb-folder
-for pkg in $(dpkg --get-selections | cut -f1)
+touch /var/lib/dpkg/status
+dpkg --get-selections | cut -f1 > ./installed.txt
+for pkg in $(cat ./installed.txt)
 do
     DEBIAN_FRONTEND=noninteractive apt download $pkg -y
 done
