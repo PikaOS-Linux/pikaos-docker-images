@@ -37,7 +37,7 @@ apt-get update -y
 
 for pkg in $(dpkg --get-selections | cut -f1)
 do
-    DEBIAN_FRONTEND=noninteractive apt-get reinstall -y $pkg -o Dpkg::Options::="--force-confnew"
+    DEBIAN_FRONTEND=noninteractive apt install -y $pkg --reinstall --allow-downgrades --allow-change-held-packages -o Dpkg::Options::="--force-confnew"
 done
 
 ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
