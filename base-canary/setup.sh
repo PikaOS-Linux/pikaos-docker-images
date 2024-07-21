@@ -46,6 +46,7 @@ apt-get update -y
 mkdir -p ./deb-folder && chmod 777 ./deb-folder && cd ./deb-folder
 touch /var/lib/dpkg/status
 touch /var/lib/dpkg/status-old
+touch /var/lib/dpkg/available
 rm -rf /var/lib/dpkg/info
 mkdir /var/lib/dpkg/info
 dpkg --get-selections | cut -f1 > ./installed.txt
