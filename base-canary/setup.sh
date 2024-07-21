@@ -46,8 +46,6 @@ EOF
 apt-get update -y
 
 dpkg --get-selections | cut -f1 > ./installed.txt
-apt policy libgmp10
-exit 1
 for pkg in $(cat ./installed.txt)
 do
     DEBIAN_FRONTEND=noninteractive apt install -y $pkg --allow-downgrades -o Dpkg::Options::="--force-confnew"
