@@ -1,11 +1,11 @@
-name: Build pikaos-builder Canary Image and push to registry
+name: Build pikaos-distrobox Nest Image and push to registry (amd64-v3)
 
 on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: pikaos-builder
-  IMAGE_VERSION: canary
+  IMAGE_NAME: pikaos-distrobox
+  IMAGE_VERSION: nestv3
 
 jobs:
   # Push image to GitHub Packages.
@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build image
-        run: docker build . --file builder-canary/Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: docker build . --file distrobox-nestv3/Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
       - name: Log in to registry
         # This is where you will update the personal access token to GITHUB_TOKEN
