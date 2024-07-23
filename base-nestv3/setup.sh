@@ -44,12 +44,13 @@ for pkg in $(cat ./installed.txt)
 do
     DEBIAN_FRONTEND=noninteractive apt install -y $pkg --allow-downgrades -o Dpkg::Options::="--force-confnew"
 done
+rm -fv ./installed.txt
 
 rm -fv /etc/apt/preferences.d/0-pika-nest-settings
 #
 
 ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
-DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata -o Dpkg::Options::="--force-confnew"
+DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata pika-sources -o Dpkg::Options::="--force-confnew"
 
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
