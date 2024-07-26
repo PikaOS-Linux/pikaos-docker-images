@@ -1,0 +1,48 @@
+name: Build pikaos-base Nest Image and push to registry (i386)
+
+on:
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: pikaos-base
+  IMAGE_VERSION: nesti386
+
+jobs:
+  push:
+    runs-on: self-hosted
+    container:
+      image: debian:sid
+      volumes:
+        - /proc:/proc
+      options: --privileged -it
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Update APT Cache
+        run:  apt-get update
+      
+      - name: Get debootstrap
+        run:  apt-get install -y debootstrap docker.io sudo
+
+      - name: Generate debootstrap tar
+        run: cd ./base-nesti386 && ./debootstrap.sh
+        
+      - name: Import base image
+        run: cd ./base-nesti386 && docker import ./base_chroot.tgz rootfs-nesti386
+        
+      - name: Build base image
+        run: cd ./base-nesti386 && docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+
+      - name: Log in to registry
+        # This is where you will update the personal access token to GITHUB_TOKEN
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
+      - name: Push image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          echo ID=$IMAGE_ID
+          echo VERSION=$IMAGE_VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:$IMAGE_VERSION
+          docker push $IMAGE_ID:$IMAGE_VERSION
