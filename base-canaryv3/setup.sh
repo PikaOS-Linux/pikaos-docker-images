@@ -68,10 +68,7 @@ rm -fv /etc/apt/preferences.d/0-pika-canary-settings
 #
 
 ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
-DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata pika-sources nodejs:amd64 -o Dpkg::Options::="--force-confnew"
-
-mkdir -p /__e/node16/bin/
-ln -sfv /usr/bin/node /__e/node16/bin/
+DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata pika-sources -o Dpkg::Options::="--force-confnew"
 
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
