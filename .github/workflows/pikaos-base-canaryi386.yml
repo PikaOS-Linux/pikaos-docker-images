@@ -18,6 +18,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Get debootstrap
+        run:  sudo apt-get install -y debootstrap
 
       - name: Generate debootstrap tar
         run: cd ./base-canaryi386 && sudo ./debootstrap.sh
