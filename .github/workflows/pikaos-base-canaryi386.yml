@@ -20,16 +20,16 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Get debootstrap
-        run:  sudo apt-get install -y debootstrap
+        run:  apt-get install -y debootstrap
 
       - name: Generate debootstrap tar
-        run: cd ./base-canaryi386 && sudo ./debootstrap.sh
+        run: cd ./base-canaryi386 && ./debootstrap.sh
         
       - name: Import base image
-        run: cd ./base-canaryi386 && sudo docker import ./base_chroot.tgz rootfs-canaryi386
+        run: cd ./base-canaryi386 && docker import ./base_chroot.tgz rootfs-canaryi386
         
       - name: Build base image
-        run: cd ./base-canaryi386 && sudo docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: cd ./base-canaryi386 && docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
       - name: Log in to registry
         # This is where you will update the personal access token to GITHUB_TOKEN
