@@ -8,13 +8,13 @@ env:
   IMAGE_VERSION: canaryi386
 
 jobs:
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
   push:
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
+    runs-on: self-hosted
+    container:
+      image: debian:sid
+      volumes:
+        - /proc:/proc
+      options: --privileged -it
 
     steps:
       - uses: actions/checkout@v3
