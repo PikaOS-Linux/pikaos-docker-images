@@ -72,3 +72,8 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata pika-sources -o Dpkg::O
 
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
+
+if apt show libmesa-stable
+then
+	DEBIAN_FRONTEND=noninteractive apt install libmesa-stable -y -o Dpkg::Options::="--force-confnew"
+fi
