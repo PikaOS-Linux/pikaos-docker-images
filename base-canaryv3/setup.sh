@@ -2,6 +2,8 @@
 
 set -e
 
+apt-mark hold pika-baseos
+
 mkdir -p /etc/apt/sources.list.d
 
 rm -rf /etc/apt/sources.list.d/*
@@ -73,7 +75,4 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata pika-sources -o Dpkg::O
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
 
-if apt show libmesa-stable
-then
-	DEBIAN_FRONTEND=noninteractive apt install libmesa-stable -y -o Dpkg::Options::="--force-confnew"
-fi
+apt-mark unhold pika-baseos
