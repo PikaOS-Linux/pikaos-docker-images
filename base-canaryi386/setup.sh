@@ -1,5 +1,7 @@
 #! /bin/bash
 
+apt-mark hold pika-baseos
+
 set -e
 
 mkdir -p /etc/apt/sources.list.d
@@ -76,7 +78,4 @@ ln -sfv /usr/bin/node /__e/node16/bin/
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
 
-if apt show libmesa-stable
-then
-	DEBIAN_FRONTEND=noninteractive apt install libmesa-stable -y -o Dpkg::Options::="--force-confnew"
-fi
+apt-mark unhold pika-baseos
