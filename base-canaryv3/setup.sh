@@ -2,8 +2,6 @@
 
 set -e
 
-apt-mark hold pika-baseos
-
 mkdir -p /etc/apt/sources.list.d
 
 rm -rf /etc/apt/sources.list.d/*
@@ -56,6 +54,8 @@ Pin-Priority: 1001
 EOF
 
 apt-get update -y
+
+apt-mark hold pika-baseos
 
 dpkg --get-selections | cut -f1 > ./installed.txt
 for pkg in $(cat ./installed.txt)
