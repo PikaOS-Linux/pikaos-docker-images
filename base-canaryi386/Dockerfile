@@ -1,5 +1,4 @@
 FROM rootfs-canaryi386
-RUN dpkg --add-architecture amd64
 RUN apt install -y wget ca-certificates apt-utils
 RUN wget https://github.com/PikaOS-Linux/pikaos-docker-images/raw/main/base-canaryi386/setup.sh
 RUN chmod +x ./setup.sh
