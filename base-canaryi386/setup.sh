@@ -1,7 +1,5 @@
 #! /bin/bash
 
-dpkg --add-architecture amd64
-
 set -e
 
 mkdir -p /etc/apt/sources.list.d
