@@ -23,6 +23,6 @@ jobs:
         with:
           context: .base-nestv3/
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/pikaos-base:nestv3
+          tags: ghcr.io/pikaos-linux/pikaos-base:nestv3
 
           
