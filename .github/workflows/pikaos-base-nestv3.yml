@@ -21,7 +21,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: .base-nestv3/
+          context: ./base-nestv3/
           push: true
           tags: ghcr.io/pikaos-linux/pikaos-base:nestv3
 
