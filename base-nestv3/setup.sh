@@ -27,7 +27,7 @@ EOF
 
 # Get keyrings
 mkdir -p /etc/apt/keyrings/
-wget https://ppa.pika-os.com/key.gpg -O /etc/apt/keyrings/pika-keyring.gpg.key
+curl -s https://ppa.pika-os.com/key.gpg | gpg --dearmor > /etc/apt/keyrings/pika-keyring.gpg.key
 
 # Setup apt configration
 mkdir -p /etc/apt/preferences.d/
