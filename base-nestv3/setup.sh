@@ -1,7 +1,8 @@
 #! /bin/bash
 
 set -e
-
+apt update -y
+apt install curl gpg -y
 mkdir -p /etc/apt/sources.list.d
 
 rm -rf /etc/apt/sources.list.d/*
