@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:latest
+      image: cruizba/ubuntu-dind:systemd-latest
       volumes:
         - /proc:/proc
       options: --privileged -it
