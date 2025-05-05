@@ -45,6 +45,7 @@ apt-mark hold pika-baseos
 dpkg --get-selections | cut -f1 > ./installed.txt
 for pkg in $(cat ./installed.txt)
 do
+    [ "$pkg" = "resolvconf" ] && echo "Skipping resolvconf..." && continue
     DEBIAN_FRONTEND=noninteractive apt install -y $pkg --allow-downgrades -o Dpkg::Options::="--force-confnew"
 done
 
