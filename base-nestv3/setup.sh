@@ -40,7 +40,7 @@ EOF
 
 apt-get update -y
 
-apt-mark hold pika-baseos
+apt-mark hold pika-baseos resolvconf
 
 dpkg --get-selections | cut -f1 > ./installed.txt
 for pkg in $(cat ./installed.txt)
@@ -53,11 +53,10 @@ rm -fv ./installed.txt
 
 rm -fv /etc/apt/preferences.d/0-pika-nest-settings
 #
-sudo umount -f /etc/resolv.conf
 ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata pika-sources -o Dpkg::Options::="--force-confnew"
 
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
 
-apt-mark unhold pika-baseos
+apt-mark unhold pika-baseos resolvconf
