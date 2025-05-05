@@ -53,7 +53,7 @@ rm -fv ./installed.txt
 
 rm -fv /etc/apt/preferences.d/0-pika-nest-settings
 #
-
+umount -f /etc/resolv.conf
 ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata pika-sources -o Dpkg::Options::="--force-confnew"
 
