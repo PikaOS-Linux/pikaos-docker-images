@@ -40,7 +40,7 @@ EOF
 
 apt-get update -y
 
-apt-mark hold pika-baseos resolvconf
+apt-mark hold pika-baseos resolvconf pika-baseos-minimal
 
 dpkg --get-selections | cut -f1 > ./installed.txt
 for pkg in $(cat ./installed.txt)
@@ -59,4 +59,4 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata pika-sources -o Dpkg::O
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confnew"
 
-apt-mark unhold pika-baseos resolvconf
+apt-mark unhold pika-baseos resolvconf pika-baseos-minimal
